@@ -341,9 +341,11 @@ function build() {
 
 function build_bootloader() {
     if [ "${BOARD}" != "sim" ]; then
+        current_dir=$(pwd)
         cd ${NUTTX_DIR}
-        wget https://github.com/espressif/esp-nuttx-bootloader/releases/download/latest/bootloader-esp32.bin -P ./
-        cd ..
+        make bootloader
+        rm partition-table-esp32.bin # avoid to use this
+        cd ${current_dir}
     fi
 }
 
